@@ -38,8 +38,9 @@ void Server::processDatagram(QNetworkDatagram datagram)
     {
         Connection connection = findConnectionByAddressAndPort(address, port);
         QString message = QString(&buffer.constData()[1]);
+        buffer.clear();
         buffer.append((char)MessageTypes::CLIENT_MESSAGE);
-        //buffer.append(connection.getNickname().toUtf8());
+        buffer.append(connection.getNickname().toUtf8() + ": ");
         buffer.append(message.toUtf8());
         qDebug() << message;
         broadcastMessage(buffer, {  });

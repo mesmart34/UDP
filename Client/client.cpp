@@ -23,7 +23,8 @@ void Client::readData()
 {
     QNetworkDatagram datagram = socket->receiveDatagram();
     QByteArray bytes = datagram.data();
-    switch ((MessageTypes)bytes[0]) {
+    MessageTypes messageType = (MessageTypes)bytes[0];
+    switch (messageType) {
         case MessageTypes::WELCOME:
         {
             qDebug() << "You are connected to " << datagram.senderAddress() << ":" << datagram.senderPort();
@@ -31,13 +32,10 @@ void Client::readData()
         } break;
         case MessageTypes::CLIENT_MESSAGE:
         {
-            qDebug() << QString(bytes);
+            qDebug() << QString::fromUtf8(bytes);
             emit onMessageRecieve(QString(&bytes.constData()[1]));
         } break;
     }
-
-
-
 }
 
 

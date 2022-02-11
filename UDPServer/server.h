@@ -23,10 +23,10 @@ private:
      void run();
      void processDatagram(QNetworkDatagram datagram);
      inline MessageTypes getMessageType(char data) const;
-     void addConnection(QHostAddress address, int port, QByteArray buffer);
-     void writeData(QByteArray buffer, const Connection& reciever);
+     void addConnection(const QHostAddress& address, int port, QByteArray buffer);
+     void writeData(const QByteArray& buffer, const Connection& reciever);
      Connection findConnectionByAddressAndPort(QHostAddress address, int port);
-     void broadcastMessage(QByteArray buffer, const QString &exceptionNickname);
+     void broadcastMessage(const QByteArray& buffer, const QString &exceptionNickname);
 
      QUdpSocket* socket;
      std::vector<Connection> connections;
